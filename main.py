@@ -9,8 +9,12 @@ sys.setdefaultencoding('utf-8')
 
 from flask import Flask
 from config import global_settings
-app = Flask(__name__)
 
+# 导入应用
+from workflow import workflow_app
+
+app = Flask(__name__)
+app.register_blueprint(workflow_app)
 
 @app.route('/')
 def hello_world():
