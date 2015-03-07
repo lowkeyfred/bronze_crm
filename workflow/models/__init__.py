@@ -13,7 +13,7 @@ class Order(Base):
     '''
     __tablename__ = 'order'
 
-    STATUS_CLOSE  = '0'             # 工单状态： 关闭
+    STATUS_CLOSE    = '0'             # 工单状态： 关闭
     STATUS_OPEN     = '1'           # 工单状态： 流转中
 
     id = Column(Integer, primary_key=True, autoincrement=True)
