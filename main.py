@@ -7,18 +7,26 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-from flask import Flask
+from flask import Flask, session
 from config import global_settings
+from lib.site.server_session import RedisSessionInterface
 
 # 导入应用
 from workflow import workflow_app
 
 app = Flask(__name__)
+
 app.register_blueprint(workflow_app)
+
+app.session_interface = RedisSessionInterface()
 
 @app.route('/')
 def hello_world():
     print(app.config)
+    if not session.get('name', None):
+        session['name'] = 'caimmy'
+    else:
+        return "sessioned : " + str(session.get('name'))
     return '阿三服阿斯顿服'
 
 @app.errorhandler(404)
