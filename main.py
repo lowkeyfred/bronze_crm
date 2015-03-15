@@ -8,7 +8,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 from flask import Flask, session
-from config import global_settings
+from config import DevConfig as global_settings
 from lib.site.server_session import RedisSessionInterface
 
 # 导入应用
@@ -26,13 +26,16 @@ def hello_world():
     if not session.get('name', None):
         session['name'] = 'caimmy'
     else:
+        print(session.get('name'))
         return "sessioned : " + str(session.get('name'))
+
     return '阿三服阿斯顿服'
 
 @app.errorhandler(404)
 def test_404(error):
     print(app.config)
-    return '<h1>404 occur</h1><br />%s' % (str(error)), 404
+    return '<h1>404 occured</h1><br />%s' % (str(error)), 404
 
 app.config.from_object(global_settings)
 app.run(host='0.0.0.0', port=5000)
+# app.run()
